@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Flask App</title>
+	<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}"/>
+</head>
+<body>
+    <h1>Todo App</h1>
+    <hr>
+    <div class="content">
+        <form method="POST">
+            <p>
+                <b><label for="task">Create New Task To Do</label></b>
+            </p>
+            <p>
+            <input type="text" name="task" placeholder="new task...">
+            </p>
+            <p>
+                <b><label for="degree">Degree of Importance</label></b>
+            </p>
+            <p>
+                <input 
+                id="degree-0" 
+                name="degree" 
+                required 
+                type="radio" value="High">
+                <label for="degree-0">High</label>
+            </p>
+            <p>
+                <input 
+                id="degree-1" 
+                name="degree" 
+                required 
+                type="radio" value="Low">
+                <label for="degree-1">Low</label>
+            </p>
+            <button type="submit">Create</button>
+        </form>
+		<hr>
+        
+        <h3>Todo List</h3>
+        <ul class="todo">
+		{% for todo in todos %}
+        
+            <li>
+	    <!--Fetching a todo-->
+		<p> {{ todo['task'] }} <i>
+			({{ todo['degree'] }})</i> 
+		</p>
+        </li>
+		<!-- Deleting a todo -->
+		<form method="POST" 
+			  action="{{ url_for('delete', id=todo['_id']) }}">
+		<input 
+			  type="submit"
+			  value="delete task"
+			  />
+		</form>
+    
+		{% endfor %}
+    </ul>
+        
+    </div>
+</body>
+</html>
